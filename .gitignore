@@ -1,0 +1,6 @@
+#Ignore build outputs
+*.o
+program
+
+#Ignore weird .vscode folder
+.vscode/

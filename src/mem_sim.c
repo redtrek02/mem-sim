@@ -1,12 +1,13 @@
 #include "mem_sim.h"
 #include "commands.h"
+#include "error_codes.h"
 
 block_t* memory = NULL;
 
 block_t* create_memory(uint8_t size) {
 	block_t* my_block = malloc(sizeof(block_t));
 	if (my_block == NULL) {
-		perror("malloc for memory was unsucessful\n");
+		perror("malloc in create_memory() was unsucessful\n");
 	}
 
 	my_block->next = NULL;
@@ -271,11 +272,14 @@ void execute_user_command(char** args) {
 		return;
 	}
 
-	int num_commands = sizeof(commands_list) / sizeof(cmd);
+	int num_commands = commands_list_sz;
 	for (int i = 0; i < num_commands; i++) {
 		if (strcmp(args[0], commands_list[i].name) == 0) {
-			printf("%d\n", commands_list[i].handle(args + 1));
+			commands_list[i].handle(args + 1) == E_PASS ? : printf("%s failed to run.\n", commands_list[i].name);
+			return;
 		}
 	}
-	
+
+	printf("Command not found. Please try again.");
+	cmd_help(NULL);
 }

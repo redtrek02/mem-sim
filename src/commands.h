@@ -18,6 +18,11 @@ int cmd_free(char** args);
 
 int cmd_draw(char** args);
 
-extern cmd commands_list[5];
+int cmd_help(char** args);
+
+int cmd_quit(char** args);
+
+extern cmd commands_list[];
+extern int commands_list_sz;
 
 #endif /* #ifndef COMMANDS_H */
